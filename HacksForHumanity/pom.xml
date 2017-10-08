@@ -61,7 +61,7 @@
       <configuration>
         <archive>
           <manifest>
-            <mainClass>com.main.java.server.Application</mainClass>
+            <mainClass>com.server.Application</mainClass>
           </manifest>
         </archive>
       </configuration>
