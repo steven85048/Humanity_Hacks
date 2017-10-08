@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements
         textDisplay = (TextView) findViewById(R.id.textDisplay);
         textEdit = (EditText) findViewById(R.id.editText);
 
+        // Google Client set up
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Nearby.MESSAGES_API)
                 .addConnectionCallbacks(this)
@@ -55,10 +56,12 @@ public class MainActivity extends AppCompatActivity implements
                 .addOnConnectionFailedListener(this)
                 .build();
 
+        // Message Listener
         messageListener = new MessageListener() {
             @Override
             public void onFound(Message message){
                 String currMessage =  new String(message.getContent());
+                textDisplay.setText(currMessage);
                 Log.e("Found message: ", currMessage);
             }
 
@@ -79,11 +82,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onStop() {
+        unsubscribe();
+        unpublish();
+
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
-        unpublish();
-        unsubscribe();
 
         super.onStop();
     }
