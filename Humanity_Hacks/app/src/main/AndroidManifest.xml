@@ -11,14 +11,13 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyD70B_dg6enYNJueDf78OZ67QlpuuFFHTk"></meta-data>
+            android:value="AIzaSyDhVoNwYvqUvMN24QgPsI0cZMM86JqKiy4"></meta-data>
 
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 

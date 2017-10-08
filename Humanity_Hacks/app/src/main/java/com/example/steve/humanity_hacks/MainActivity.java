@@ -11,6 +11,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
+import com.google.android.gms.nearby.messages.Strategy;
+import com.google.android.gms.nearby.messages.SubscribeOptions;
 
 public class MainActivity extends AppCompatActivity implements
                                                         GoogleApiClient.ConnectionCallbacks,
@@ -41,24 +43,23 @@ public class MainActivity extends AppCompatActivity implements
         });
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Nearby.CONNECTIONS_API)
+                .addApi(Nearby.MESSAGES_API)
                 .addConnectionCallbacks(this)
+                .enableAutoManage(this, this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
-        Log.e("Testing", "Testing");
 
         messageListener = new MessageListener() {
             @Override
             public void onFound(Message message){
                 String currMessage =  new String(message.getContent());
-                Log.d("Found message: ", currMessage);
+                Log.e("Found message: ", currMessage);
             }
 
             @Override
             public void onLost(Message message){
                 String currMessage = new String(message.getContent());
-                Log.d("Lost message: ", currMessage);
+                Log.e("Lost message: ", currMessage);
             }
         };
     }
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+        unpublish();
+        unsubscribe();
 
         super.onStop();
     }
@@ -84,7 +87,10 @@ public class MainActivity extends AppCompatActivity implements
     // Subscribe to receive messages.
     private void subscribe() {
         Log.i("Subscribing", "Subscribing.");
-        Nearby.Messages.subscribe(mGoogleApiClient,messageListener);
+        SubscribeOptions options = new SubscribeOptions.Builder()
+                            .setStrategy(Strategy.BLE_ONLY)
+                            .build();
+        Nearby.Messages.subscribe(mGoogleApiClient,messageListener, options);
     }
 
     // Unsubscribe to receiving messages
@@ -114,16 +120,22 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.e("fuck", "fuck me in the asshole");
+        publish("hello world");
+        subscribe();
         // TODO
     }
 
     @Override
     public void onConnectionSuspended(int cause) {
+        Log.e("connection suspended", "suspended");
         // TODO
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult result) {
+        String s = result.getErrorMessage();
+        if (s == null)
+            Log.e("error", "failed");
         // TODO
     }
 
