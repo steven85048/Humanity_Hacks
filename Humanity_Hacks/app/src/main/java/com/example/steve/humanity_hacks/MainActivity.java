@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements
 
     // Component variables
     Button submitButton;
+    TextView textDisplay;
+    EditText textEdit;
 
     // ========================== MAIN THREAD THREADS ==============================
 
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements
                 click();
             }
         });
+        textDisplay = (TextView) findViewById(R.id.textDisplay);
+        textEdit = (EditText) findViewById(R.id.editText);
 
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Nearby.MESSAGES_API)
@@ -120,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.e("fuck", "fuck me in the asshole");
-        publish("hello world");
         subscribe();
         // TODO
     }
@@ -141,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements
 
     // ===================== Component Events ========================
     public void click() {
-        publish("hello");
+        String currText = textEdit.getText().toString();
+        publish(currText);
     }
 }
