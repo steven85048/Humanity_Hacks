@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Humanity_Hacks</string>
     <string name="title_activity_receive">ReceiveActivity</string>
+    <string name="service_id">com.example.steve.humanity_hacks</string>
 </resources>
