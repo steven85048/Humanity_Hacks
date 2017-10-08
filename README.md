@@ -1,5 +1,6 @@
 # Humanity_Hacks
 Team 7:
+Steven Tran, Geoffrey Wong, Nicko Soto, Ryan Yiu, Luis Hernandez
 
 Description: Application that allows users to create local beacons over bluetooth that broadcast messages to all phones in a small radius (100m approx). This app is targeted towards disaster relief efforts, since it allows individuals to advertise and require assistance in areas where it may be difficult to coordinate help. This functionality is achieved through the Messages API of the Google Nearby API, which allows easy use of bluetooth and wifi to broadcast messages to nearby phones. This is wrapped in an android application, which is built using the Java Android SDK. 
 
