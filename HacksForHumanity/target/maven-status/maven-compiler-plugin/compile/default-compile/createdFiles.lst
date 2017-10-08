@@ -1,7 +1,0 @@
-server\Application.class
-server\ClientRepository.class
-server\ClientProfile.class
-server\Event.class
-server\EventRepository.class
-server\Application$UpdateController.class
-server\UpdateWrapper.class
